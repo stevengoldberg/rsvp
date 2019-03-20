@@ -17,7 +17,15 @@ const Comment = ({ message, index, style }) => {
   return (
     <div className={styles.root} style={style}>
       <div className={styles.title}>
-        {eventName} | {city}
+        <div className={styles.eventName}>
+          {`${eventName}, `}
+        </div>
+        <div className={styles.eventLocation}>
+          {city}
+        </div>
+        <div className={styles.dateTime}>
+          {new Date(message.mtime).toLocaleString()}
+        </div>
       </div>
       <div
         className={classNames({

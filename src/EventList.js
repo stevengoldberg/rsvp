@@ -41,6 +41,7 @@ const EventList = ({
         />
       ) : null,
   }
+
   getListRef(listRef.current)
 
   if (scrolledToBottom.current) {

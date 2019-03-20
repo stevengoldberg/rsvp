@@ -18,5 +18,29 @@
 }
 
 .title {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
   font-style: italic;
+}
+
+.eventName {
+  flex: 0 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.eventLocation {
+  flex: 0 1 auto;
+  margin-left: 0.5em;
+}
+
+.dateTime {
+  font-style: normal;
+  font-weight: bold;
+  flex: 1 0 auto;
+  margin-left: 10px;
+  text-align: right;
+  font-size: 13px;
 }
