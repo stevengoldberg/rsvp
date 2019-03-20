@@ -1,0 +1,22 @@
+.root {
+  padding: 0 5px;
+}
+
+%comment {
+  display: flex;
+  overflow: hidden;
+  margin: 5px;
+}
+
+.commentLeft {
+  @extend %comment;
+}
+
+.commentRight {
+  @extend %comment;
+  flex-direction: row-reverse;
+}
+
+.title {
+  font-style: italic;
+}

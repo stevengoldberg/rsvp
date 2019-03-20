@@ -1,45 +1,53 @@
-import React, { useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 
-import useElementHeight from './useElementHeight'
+import _ from 'lodash'
 
-import styles from './EventList.module.css'
+import { List } from 'react-virtualized'
 
 const EventList = ({
-  title,
-  isPaused,
-  setIsPaused,
   messageList,
   RenderComponent,
-  containerRef,
-  elementHeight,
-  setMaxMessages,
+  rowHeight,
+  containerHeight,
+  containerWidth,
+  getListRef,
 }) => {
-  const height = useElementHeight(containerRef)
+  const scrolledToBottom = useRef(true)
+  const listRef = useRef()
+  const latestMessageRef = useRef(_.takeRight(messageList))
 
   useEffect(() => {
-    setMaxMessages(Math.floor(height / elementHeight))
-    console.log('update')
-  }, [height])
+    latestMessageRef.current = _.takeRight(messageList)
+  }, [messageList])
 
-  return (
-    <div className={styles.root}>
-      <div className={styles.title}>{`${title} ${
-        isPaused ? ' (Paused)' : ''
-      }`}</div>
-      {messageList.map((message, idx) => (
-        <div key={idx}>
-          <RenderComponent message={message} />
-        </div>
-      ))}
-      <button
-        onClick={() => {
-          setIsPaused(wasPaused => !wasPaused)
-        }}
-      >
-        {isPaused ? 'Resume' : 'Pause'}
-      </button>
-    </div>
-  )
+  const listProps = {
+    rowHeight,
+    rowCount: messageList.length,
+    height: containerHeight,
+    width: containerWidth,
+    style: { scrollBehavior: 'smooth' },
+    scrollToAlignment: 'end',
+    onRowsRendered: ({ stopIndex }) => {
+      const latestId = _.get(latestMessageRef, 'current[0].id')
+      scrolledToBottom.current = stopIndex === latestId
+    },
+    rowRenderer: ({ index, key, style }) =>
+      messageList[index] ? (
+        <RenderComponent
+          message={messageList[index].message}
+          index={index}
+          style={style}
+          key={messageList[index].id}
+        />
+      ) : null,
+  }
+  getListRef(listRef.current)
+
+  if (scrolledToBottom.current) {
+    listProps.scrollToIndex = messageList.length - 1
+  }
+
+  return <List {...listProps} ref={listRef} />
 }
 
 export default EventList

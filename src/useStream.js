@@ -1,28 +1,31 @@
 import { useState, useEffect } from 'react'
 
-const useStream = (path) => {
-  const [isPaused, setIsPaused] = useState(false)
+import _ from 'lodash'
+
+let id = 0
+const MAX_MESSAGES = 1000
+
+const useStream = path => {
+  const [latestMessage, saveMessage] = useState()
   const [messageList, setMessageList] = useState([])
-  const [latestMessage, saveMessage] = useState('')
-  const [maxMessages, setMaxMessages] = useState(3)
 
   useEffect(() => {
-    if (isPaused) {
-      console.log(latestMessage)
-      return
-    }
-    if (messageList.length < maxMessages) {
-      setMessageList(oldMessages => oldMessages.concat(latestMessage))
-    } else {
-      setMessageList(oldMessages => [...oldMessages.slice(1), latestMessage])
-    }
-  }, [latestMessage, isPaused, maxMessages])
+    setMessageList(oldMessages => {
+      const newMessages = _.compact(oldMessages.concat(latestMessage))
+      return newMessages.length > MAX_MESSAGES
+        ? newMessages.slice(1)
+        : newMessages
+    })
+  }, [latestMessage])
 
   const initSocket = () => {
     window.__sockets__[path].onopen = () => console.log('socket open')
     window.__sockets__[path].onclose = () => console.log('socket closed')
     window.__sockets__[path].addEventListener('message', message =>
-      saveMessage(JSON.parse(message.data))
+      saveMessage({
+        message: JSON.parse(message.data),
+        id: id++,
+      })
     )
   }
 
@@ -30,7 +33,7 @@ const useStream = (path) => {
     initSocket()
   }, [])
 
-  return { isPaused, setIsPaused, messageList, setMaxMessages }
+  return { messageList }
 }
 
 export default useStream
