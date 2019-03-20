@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react'
 
 import _ from 'lodash'
 
-let id = 0
+let ids = {
+  photos: 0,
+  comments: 0,
+
+}
 const MAX_MESSAGES = 1000
 
 const useStream = path => {
@@ -24,7 +28,7 @@ const useStream = path => {
     window.__sockets__[path].addEventListener('message', message =>
       saveMessage({
         message: JSON.parse(message.data),
-        id: id++,
+        id: ids[path]++,
       })
     )
   }

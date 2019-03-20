@@ -23,8 +23,8 @@ const App = () => {
       </div>
       <div className={styles.columns}>
         <CommentStream />
-        { /*<RsvpStream />
-        <PhotoStream /> */ }
+        { /* <RsvpStream /> */ }
+        <PhotoStream />
       </div>
     </div>
   )

@@ -11,6 +11,7 @@ const EventList = ({
   containerHeight,
   containerWidth,
   getListRef,
+  ...otherProps,
 }) => {
   const scrolledToBottom = useRef(true)
   const listRef = useRef()
@@ -38,6 +39,7 @@ const EventList = ({
           index={index}
           style={style}
           key={messageList[index].id}
+          {...otherProps}
         />
       ) : null,
   }
