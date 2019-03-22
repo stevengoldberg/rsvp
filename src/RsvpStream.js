@@ -1,22 +1,18 @@
-import React, { useRef } from 'react'
+import React from 'react'
+
+import { AutoSizer } from 'react-virtualized'
 
 import useStream from './useStream'
-import EventList from './EventList'
-import Rsvp, { RSVP_HEIGHT } from './Rsvp'
 
 import styles from './RsvpStream.module.css'
 
 const RsvpStream = () => {
-  const containerRef = useRef(null)
+  const { messageList } = useStream('rsvp')
   return (
-    <div className={styles.root} ref={containerRef}>
-      <EventList
-        {...useStream('rsvp')}
-        elementHeight={RSVP_HEIGHT}
-        containerRef={containerRef}
-        title="RSVPs"
-        RenderComponent={Rsvp}
-      />
+    <div className={styles.mapContainer}>
+      <AutoSizer disableWidth>
+        {({ height }) => <div id="js-map" style={{ height }} />}
+      </AutoSizer>
     </div>
   )
 }

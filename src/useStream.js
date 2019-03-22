@@ -5,7 +5,6 @@ import _ from 'lodash'
 let ids = {
   photos: 0,
   comments: 0,
-
 }
 const MAX_MESSAGES = 1000
 
@@ -24,7 +23,8 @@ const useStream = path => {
 
   const initSocket = () => {
     window.__sockets__[path].onopen = () => console.log('socket open')
-    window.__sockets__[path].onclose = () => console.log('socket closed')
+    window.__sockets__[path].onclose = (event, code) =>
+      console.log(`${path} socket closed: ${JSON.stringify(event)}`)
     window.__sockets__[path].addEventListener('message', message =>
       saveMessage({
         message: JSON.parse(message.data),

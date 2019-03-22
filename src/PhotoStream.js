@@ -4,7 +4,7 @@ import { AutoSizer } from 'react-virtualized'
 
 import useStream from './useStream'
 import EventList from './EventList'
-import Photo from './Photo'
+import Photo, { PHOTO_HEIGHT } from './Photo'
 
 import styles from './PhotoStream.module.css'
 
@@ -29,7 +29,7 @@ const PhotoStream = () => {
           {({ height, width }) => (
             <EventList
               messageList={messageList}
-              rowHeight={width}
+              rowHeight={PHOTO_HEIGHT}
               containerHeight={height}
               containerWidth={width}
               RenderComponent={Photo}

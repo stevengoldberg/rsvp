@@ -1,6 +1,8 @@
+@import './_colors.scss';
+
 %bubble {
   position: relative;
-  background: #441ac0;
+  background: $bubbleColor;
   border-radius: .4em;
   color: white;
   padding: 10px;
@@ -27,7 +29,7 @@
     @extend %bubbleAfter;
     left: 0;
     top: 50%;
-    border-right-color: #441ac0;
+    border-right-color: $bubbleColor;
     border-left: 0;
     margin-left: -0.75em;
   }
@@ -39,7 +41,7 @@
   &:after {
     @extend %bubbleAfter;
     right: 0;
-    border-left-color: #441ac0;
+    border-left-color: $bubbleColor;
     border-right: 0;
     margin-right: -0.75em;
   }
