@@ -13,6 +13,7 @@ const Photo = ({ message, photoWidth, style }) => (
     <img
       className={styles.photo}
       src={message.photo_link}
+      alt={_.get(message, 'photo_album.event.name')}
     />
     <div className={styles.footer}>
       <span>{new Date(message.mtime).toLocaleString()}</span>

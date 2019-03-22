@@ -5,3 +5,8 @@
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
+
+.mapLabel {
+  font-size: 5px;
+  padding-left: 5px;
+}
