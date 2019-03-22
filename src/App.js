@@ -1,5 +1,4 @@
 import * as React from 'react'
-
 // import useStream from './useStream'
 // import useWindowHeight from './useWindowHeight'
 
@@ -18,12 +17,9 @@ window.__sockets__ = {
 const App = () => {
   return (
     <div className={styles.root}>
-      <div className={styles.title}>
-        Welcome
-      </div>
       <div className={styles.columns}>
         <CommentStream />
-        { /* <RsvpStream /> */ }
+        <RsvpStream />
         <PhotoStream />
       </div>
     </div>
