@@ -8,9 +8,9 @@ import RsvpStream from './RsvpStream'
 import styles from './App.module.css'
 
 window.__sockets__ = {
-  comments: new WebSocket('ws://stream.meetup.com/2/event_comments'),
-  rsvp: new WebSocket('ws://stream.meetup.com/2/rsvps'),
-  photos: new WebSocket('ws://stream.meetup.com/2/photos'),
+  comments: new WebSocket('wss://stream.meetup.com/2/event_comments'),
+  rsvp: new WebSocket('wss://stream.meetup.com/2/rsvps'),
+  photos: new WebSocket('wss://stream.meetup.com/2/photos'),
 }
 
 const App = () => {
