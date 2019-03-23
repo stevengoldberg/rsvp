@@ -1,9 +1,8 @@
 import * as React from 'react'
-// import useStream from './useStream'
-// import useWindowHeight from './useWindowHeight'
 
-import CommentStream from './CommentStream'
-import PhotoStream from './PhotoStream'
+import StreamingColumn from './StreamingColumn'
+import Comment, { COMMENT_HEIGHT } from './Comment'
+import Photo, { PHOTO_HEIGHT } from './Photo'
 import RsvpStream from './RsvpStream'
 
 import styles from './App.module.css'
@@ -18,9 +17,19 @@ const App = () => {
   return (
     <div className={styles.root}>
       <div className={styles.columns}>
-        <CommentStream />
+        <StreamingColumn
+          title="Comments"
+          rowHeight={COMMENT_HEIGHT}
+          socketKey="comments"
+          RenderComponent={Comment}
+        />
         <RsvpStream />
-        <PhotoStream />
+        <StreamingColumn
+          title="Photos"
+          rowHeight={PHOTO_HEIGHT}
+          socketKey="photos"
+          RenderComponent={Photo}
+        />
       </div>
     </div>
   )

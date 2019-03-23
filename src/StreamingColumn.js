@@ -4,18 +4,17 @@ import { AutoSizer } from 'react-virtualized'
 
 import useStream from './useStream'
 import EventList from './EventList'
-import Comment, { COMMENT_HEIGHT } from './Comment'
 
-import styles from './CommentStream.module.css'
+import styles from './StreamingColumn.module.scss'
 
-const CommentStream = () => {
-  const { messageList } = useStream('comments')
+const StreamingColumn = ({ rowHeight, RenderComponent, socketKey, title }) => {
+  const { messageList } = useStream(socketKey)
   const listRef = useRef()
 
   return (
     <div className={styles.root}>
-      <div className={styles.header}>
-        <div className={styles.title}>Comments</div>
+     <div className={styles.header}>
+        <div className={styles.title}>{title}</div>
         <button
           onClick={() => {
             listRef.current.scrollToRow(messageList.length - 1)
@@ -29,10 +28,11 @@ const CommentStream = () => {
           {({ height, width }) => (
             <EventList
               messageList={messageList}
-              rowHeight={COMMENT_HEIGHT}
+              rowHeight={rowHeight}
               containerHeight={height}
               containerWidth={width}
-              RenderComponent={Comment}
+              RenderComponent={RenderComponent}
+              photoWidth={width}
               getListRef={ref => {
                 listRef.current = ref
               }}
@@ -44,4 +44,4 @@ const CommentStream = () => {
   )
 }
 
-export default CommentStream
+export default StreamingColumn
