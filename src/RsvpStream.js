@@ -12,22 +12,24 @@ import { getCoordinates } from './WorldMap'
 import styles from './RsvpStream.module.scss'
 
 const CHICAGO = [-87, 41]
+const MINIMUM_SNAP_INTERVAL = 2000
 
 const RsvpStream = () => {
   const { messageList } = useStream('rsvp', 25)
   const [mapCenter, setMapCenter] = useState(CHICAGO)
-  const [snapToEvent, setSnapToEvent] = useState(false)
-  const snapNext = useRef(false)
+  const [snapToEvent, setSnapToEvent] = useState(true)
+  const snapTimeout = useRef(false)
 
   useEffect(() => {
     const latestMessage = _.takeRight(messageList)[0]
     if (!latestMessage || !snapToEvent) return
-    if (!snapNext.current) {
-      snapNext.current = true
-      return
+    if (!snapTimeout.current) {
+      setMapCenter(getCoordinates(latestMessage.message))
+      snapTimeout.current = window.setTimeout(
+        () => (snapTimeout.current = false),
+        MINIMUM_SNAP_INTERVAL
+      )
     }
-    setMapCenter(getCoordinates(latestMessage.message))
-    snapNext.current = false
   }, [messageList])
   return (
     <div className={styles.mapContainer}>
@@ -36,10 +38,10 @@ const RsvpStream = () => {
         <div className={styles.toggle}>
           <input
             type="checkbox"
-            value={snapToEvent}
+            checked={snapToEvent}
             onChange={() => setSnapToEvent(prevValue => !prevValue)}
           />
-          Snap to latest
+          Auto-center map on new events
         </div>
       </div>
       <AutoSizer>
