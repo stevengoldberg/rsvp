@@ -7,11 +7,28 @@
   border-left: 1px solid black;
   border-right: 1px solid black;
   background-color: $oceanBlue;
+  display: flex;
+  flex-direction: column;
 }
 
 .mapLabel {
   font-size: 5px;
   padding-left: 5px;
+}
+
+.title {
+  padding: 0 10px;
+  font-size: 24px;
+  font-weight: bold;
+  background: white;
+  display: flex;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  font-size: 16px;
 }
 
 :global(.rsm-geography--pressed) {
