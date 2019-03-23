@@ -22,7 +22,6 @@
     "react-router-dom": "^4.4.0",
     "react-scripts": "2.1.8",
     "react-simple-maps": "^0.12.1",
-    "react-tooltip": "^3.10.0",
     "react-virtualized": "^9.21.0",
     "wsdm-tooltip": "^0.1.3"
   },

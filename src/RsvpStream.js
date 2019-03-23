@@ -4,6 +4,7 @@ import _ from 'lodash'
 import { AutoSizer } from 'react-virtualized'
 import { Motion, spring } from 'react-motion'
 
+import MeetupLogo from './MeetupLogo'
 import WorldMap from './WorldMap'
 import useStream from './useStream'
 
@@ -34,7 +35,7 @@ const RsvpStream = () => {
   return (
     <div className={styles.mapContainer}>
       <div className={styles.title}>
-        RSVP
+        <MeetupLogo /> RSVPs
         <div className={styles.toggle}>
           <input
             type="checkbox"

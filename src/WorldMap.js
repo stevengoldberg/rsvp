@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import _ from 'lodash'
+
+import styles from './WorldMap.module.scss'
 
 import {
   ComposableMap,
@@ -9,7 +11,7 @@ import {
   Markers,
   Marker,
 } from 'react-simple-maps'
-import ReactTooltip from 'react-tooltip'
+import tooltip from 'wsdm-tooltip'
 
 const LAND_COLORS = ['#09BC8A', '#92AA83', '#79B473', '#86BAA1', '#A0E8AF']
 
@@ -24,19 +26,28 @@ export const getCoordinates = rsvp => {
 }
 
 const WorldMap = ({ height, width, x, y, messageList }) => {
-  const [isHovering, setIsHovering] = useState({})
-  const handleHover = id => {
-    debugger
-    setIsHovering(oldState => ({
-      ...oldState,
-      [id]: !oldState[id],
-    }))
-  }
+  const tooltipRef = useRef()
   useEffect(() => {
-    ReactTooltip.rebuild()
-  }, [messageList])
+    tooltipRef.current = tooltip()
+    tooltipRef.current.create()
+  }, [])
 
-  // console.log(isHovering)
+  const handleMouseEnter = (rsvp, marker, evt) => {
+    tooltipRef.current.show(`
+      <div class="${styles.tooltip}">
+        ${rsvp.member.member_name}
+        <span class="${styles.attending}">
+          ${rsvp.response === 'yes' ? 'will' : "won't"}
+        </span>
+        attend ${rsvp.event.event_name}
+      </div>
+    `)
+    tooltipRef.current.position({ pageX: evt.pageX, pageY: evt.pageY })
+  }
+  const handleMouseLeave = marker => {
+    tooltipRef.current.hide()
+  }
+
   return (
     <ComposableMap height={height} width={width} projection="miller">
       <ZoomableGroup zoom={6} center={[x, y]}>
@@ -73,37 +84,39 @@ const WorldMap = ({ height, width, x, y, messageList }) => {
               <Marker
                 key={id}
                 marker={{ coordinates }}
-                onMouseEnter={() => handleHover(id)}
-                onMouseLeave={() => handleHover(id)}
+                onMouseEnter={(...args) =>
+                  handleMouseEnter(rsvp.message, ...args)
+                }
+                onMouseLeave={(...args) =>
+                  handleMouseLeave(rsvp.message, ...args)
+                }
               >
                 <defs>
                   <clipPath id="circleView">
                     <circle cx="40" cy="40" r="30" fill="#FFFFFF" />
                   </clipPath>
                 </defs>
-                <g
-                  data-for={`tip-${id}`}
-                  data-tip={`${message.member.member_name} ${
-                    message.response === 'yes'
-                      ? 'IS ATTENDING'
-                      : 'IS NOT ATTENDING'
-                  } ${message.event.event_name}`}
-                >
-                  <circle
-                    cx="40"
-                    cy="40"
-                    r="35"
-                    fill={message.response === 'yes' ? 'green' : 'red'}
-                  />
-                  <image
-                    clipPath="url(#circleView)"
-                    xlinkHref={_.get(message, 'member.photo')}
-                    width={80}
-                    height={80}
-                    style={{ background: 'white' }}
-                  />
+                <g>
+                  <a
+                    href={rsvp.message.event.event_url}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <circle
+                      cx="40"
+                      cy="40"
+                      r="35"
+                      fill={message.response === 'yes' ? 'green' : 'red'}
+                    />
+                    <image
+                      clipPath="url(#circleView)"
+                      xlinkHref={_.get(message, 'member.photo')}
+                      width={80}
+                      height={80}
+                      style={{ background: 'white', cursor: 'pointer' }}
+                    />
+                  </a>
                 </g>
-                <ReactTooltip id={`tip-${id}`} />
               </Marker>
             )
           })}

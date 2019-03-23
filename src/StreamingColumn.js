@@ -4,6 +4,8 @@ import { AutoSizer } from 'react-virtualized'
 
 import useStream from './useStream'
 import EventList from './EventList'
+import Button from './Button'
+import MeetupLogo from './MeetupLogo'
 
 import styles from './StreamingColumn.module.scss'
 
@@ -13,15 +15,18 @@ const StreamingColumn = ({ rowHeight, RenderComponent, socketKey, title }) => {
 
   return (
     <div className={styles.root}>
-     <div className={styles.header}>
-        <div className={styles.title}>{title}</div>
-        <button
+      <div className={styles.header}>
+        <div className={styles.title}>
+          <MeetupLogo />
+          {title}
+        </div>
+        <Button
           onClick={() => {
             listRef.current.scrollToRow(messageList.length - 1)
           }}
         >
           Jump to latest
-        </button>
+        </Button>
       </div>
       <div className={styles.list}>
         <AutoSizer>

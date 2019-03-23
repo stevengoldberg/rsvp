@@ -3,7 +3,9 @@
 .mapContainer {
   height: 100%;
   flex: 1 1 auto;
-  cursor: grab;
+  :global(.rsm-zoomable-group) {
+    cursor: grab;
+  }
   border-left: 1px solid black;
   border-right: 1px solid black;
   background-color: $oceanBlue;
@@ -18,28 +20,21 @@
 }
 
 .title {
-  padding: 0 10px;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
-  background: white;
+  padding: 10px;
   display: flex;
+  align-items: center;
+  background-color: white;
+  border-bottom: 1px solid black;
 }
 
 .toggle {
   display: flex;
   align-items: center;
-  margin-left: 10px;
+  margin-left: 30px;
   font-size: 16px;
-}
-
-:global(.rsm-geography--pressed) {
-  outline: none;
-}
-
-:global(.rsm-geography--pressed) {
-  outline: none;
-}
-
-:global(.rsm-geography--hover) {
-  color: initial;
+  font-weight: normal;
+  flex: 1 1 auto;
+  justify-content: center;
 }
