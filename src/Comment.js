@@ -15,7 +15,7 @@ const Comment = ({ message, index, style }) => {
   const eventName = _.get(message, 'event.event_name')
 
   return (
-    <div className={styles.root} style={style}>
+    <div style={style}>
       <div className={styles.title}>
         <div className={styles.eventName}>
           {`${eventName}, `}

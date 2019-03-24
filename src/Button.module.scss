@@ -1,0 +1,12 @@
+@import './_colors';
+
+.root {
+  border-radius: 4px;
+  background-color: $buttonColor;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  &:disabled {
+    background-color: lighten($buttonColor, 20%);
+  }
+}
