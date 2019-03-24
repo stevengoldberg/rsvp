@@ -11,7 +11,9 @@ const EventList = ({
   containerHeight,
   containerWidth,
   getListRef,
-  ...otherProps,
+  getScrolledToBottomRef,
+  noRowsRenderer,
+  ...otherProps
 }) => {
   const scrolledToBottom = useRef(true)
   const listRef = useRef()
@@ -28,9 +30,11 @@ const EventList = ({
     width: containerWidth,
     style: { scrollBehavior: 'smooth' },
     scrollToAlignment: 'end',
+    noRowsRenderer,
     onRowsRendered: ({ stopIndex }) => {
       const latestId = _.get(latestMessageRef, 'current[0].id')
       scrolledToBottom.current = stopIndex === latestId
+      getScrolledToBottomRef(scrolledToBottom.current)
     },
     rowRenderer: ({ index, key, style }) =>
       messageList[index] ? (
@@ -46,7 +50,7 @@ const EventList = ({
 
   getListRef(listRef.current)
 
-  if (scrolledToBottom.current) {
+  if (scrolledToBottom.current && messageList.length) {
     listProps.scrollToIndex = messageList.length - 1
   }
 

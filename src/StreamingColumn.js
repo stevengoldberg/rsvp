@@ -6,12 +6,14 @@ import useStream from './useStream'
 import EventList from './EventList'
 import Button from './Button'
 import MeetupLogo from './MeetupLogo'
+import EmptyColumn from './EmptyColumn'
 
 import styles from './StreamingColumn.module.scss'
 
 const StreamingColumn = ({ rowHeight, RenderComponent, socketKey, title }) => {
   const { messageList } = useStream(socketKey)
   const listRef = useRef()
+  const scrolledToBottom = useRef()
 
   return (
     <div className={styles.root}>
@@ -21,11 +23,12 @@ const StreamingColumn = ({ rowHeight, RenderComponent, socketKey, title }) => {
           {title}
         </div>
         <Button
+          disabled={scrolledToBottom.current}
           onClick={() => {
             listRef.current.scrollToRow(messageList.length - 1)
           }}
         >
-          Jump to latest
+          {scrolledToBottom.current ? 'All caught up' : 'Jump to latest'}
         </Button>
       </div>
       <div className={styles.list}>
@@ -40,6 +43,10 @@ const StreamingColumn = ({ rowHeight, RenderComponent, socketKey, title }) => {
               photoWidth={width}
               getListRef={ref => {
                 listRef.current = ref
+              }}
+              noRowsRenderer={() => <EmptyColumn title={title} />}
+              getScrolledToBottomRef={ref => {
+                scrolledToBottom.current = ref
               }}
             />
           )}
