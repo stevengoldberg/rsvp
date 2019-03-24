@@ -36,14 +36,14 @@ const RsvpStream = () => {
     <div className={styles.mapContainer}>
       <div className={styles.title}>
         <MeetupLogo /> RSVPs
-        <div className={styles.toggle}>
+        <label className={styles.toggle}>
           <input
             type="checkbox"
             checked={snapToEvent}
             onChange={() => setSnapToEvent(prevValue => !prevValue)}
           />
           Auto-center map on new events
-        </div>
+        </label>
       </div>
       <AutoSizer>
         {({ height, width }) => (
