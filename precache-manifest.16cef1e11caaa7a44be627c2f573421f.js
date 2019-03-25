@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/rsvp/static/css/main.1a1a1b35.chunk.css"
   },
   {
-    "revision": "2b563e69b86e336191deb3af48b6b5c0",
+    "revision": "f4460d7c28151b5a061237642f828241",
     "url": "/rsvp/index.html"
   }
 ];
