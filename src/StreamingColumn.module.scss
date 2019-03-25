@@ -8,6 +8,7 @@
 .list {
   height: 100%;
   flex: 1 1 auto;
+  padding-top: 26px;
 }
 
 .buttonContainer {
@@ -21,4 +22,8 @@
 
 .header {
   display: flex;
+}
+
+.fixed {
+  padding-top: 46px;
 }
