@@ -8,7 +8,7 @@ self.__precacheManifest = [
     "url": "/rsvp/static/js/runtime~main.35ee856b.js"
   },
   {
-    "revision": "465f3559ca7e05137e67",
+    "revision": "37b70feae6cbea6a91f6",
     "url": "/rsvp/static/js/main.973b0c8f.chunk.js"
   },
   {
@@ -16,11 +16,11 @@ self.__precacheManifest = [
     "url": "/rsvp/static/js/2.82d80499.chunk.js"
   },
   {
-    "revision": "465f3559ca7e05137e67",
-    "url": "/rsvp/static/css/main.1a1a1b35.chunk.css"
+    "revision": "37b70feae6cbea6a91f6",
+    "url": "/rsvp/static/css/main.b624942a.chunk.css"
   },
   {
-    "revision": "f4460d7c28151b5a061237642f828241",
+    "revision": "8d84870dc6ccb9de7acadc9d95f62f77",
     "url": "/rsvp/index.html"
   }
 ];
