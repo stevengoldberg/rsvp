@@ -4,33 +4,29 @@ import { AutoSizer } from 'react-virtualized'
 
 import useStream from './useStream'
 import EventList from './EventList'
-import Button from './Button'
-import MeetupLogo from './MeetupLogo'
 import EmptyColumn from './EmptyColumn'
+import ColumnHeader from './ColumnHeader'
 
 import styles from './StreamingColumn.module.scss'
 
-const StreamingColumn = ({ rowHeight, RenderComponent, socketKey, title }) => {
+const StreamingColumn = ({
+  rowHeight,
+  RenderComponent,
+  socketKey,
+  title,
+}) => {
   const { messageList } = useStream(socketKey)
   const listRef = useRef()
   const scrolledToBottom = useRef()
 
   return (
     <div className={styles.root}>
-      <div className={styles.header}>
-        <div className={styles.title}>
-          <MeetupLogo />
-          {title}
-        </div>
-        <Button
-          disabled={scrolledToBottom.current}
-          onClick={() => {
-            listRef.current.scrollToRow(messageList.length - 1)
-          }}
-        >
-          {scrolledToBottom.current ? 'All caught up' : 'Jump to latest'}
-        </Button>
-      </div>
+      <ColumnHeader
+        title={title}
+        scrolledToBottom={scrolledToBottom}
+        messageList={messageList}
+        listRef={listRef}
+      />
       <div className={styles.list}>
         <AutoSizer>
           {({ height, width }) => (
