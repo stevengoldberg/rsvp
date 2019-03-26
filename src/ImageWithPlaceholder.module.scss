@@ -1,0 +1,15 @@
+%transition {
+  transition: opacity 250ms ease-in-out;
+}
+
+.hidden {
+  @extend %transition;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.visible {
+  @extend %transition;
+  visibility: visible;
+  opacity: 1;
+}
