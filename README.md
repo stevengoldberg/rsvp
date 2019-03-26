@@ -14,6 +14,8 @@ Mobile:
 
 ## TODOs
 
+* Add image loading placeholders
 * Keep the socket connections alive, handle disconnects gracefully
 * Optimize the map view for mobile
 * Handle resizing the window in map view
+* More animated transitions
