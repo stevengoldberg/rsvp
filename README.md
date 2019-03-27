@@ -14,8 +14,9 @@ Mobile:
 
 ## TODOs
 
-* Add image loading placeholders
-* Keep the socket connections alive, handle disconnects gracefully
+* Keep the socket connections alive
+* Add reconnect logic
+* Show connection status
 * Optimize the map view for mobile
 * Handle resizing the window in map view
-* More animated transitions
+* Animated transitions
