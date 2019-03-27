@@ -1,7 +1,7 @@
 import * as React from 'react'
 import _ from 'lodash'
 
-import ImageWithPlaceholder from './ImageWithPlaceholder'
+import BitmapImageWithPlaceholder from './BitmapImageWithPlaceholder'
 
 import styles from './Photo.module.scss'
 
@@ -12,7 +12,7 @@ const Photo = ({ message, photoWidth, style }) => (
     <div className={styles.header}>
       {_.get(message, 'photo_album.event.name')}
     </div>
-    <ImageWithPlaceholder
+    <BitmapImageWithPlaceholder
       height={PHOTO_HEIGHT}
       width={photoWidth}
       imageProps={{

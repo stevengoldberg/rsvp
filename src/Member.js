@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import ImageWithPlaceholder from './ImageWithPlaceholder'
+import BitmapImageWithPlaceholder from './BitmapImageWithPlaceholder'
 
 import styles from './Member.module.css'
 
@@ -10,7 +10,7 @@ const Member = ({
   member: { member_name: memberName, photo: memberPhoto },
 }) => (
   <div className={styles.root}>
-    <ImageWithPlaceholder
+    <BitmapImageWithPlaceholder
       imageProps={{
         className: styles.photo,
         src: memberPhoto,

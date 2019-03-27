@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import _ from 'lodash'
 
+import SvgImageWithPlaceholder from './SvgImageWithPlaceholder'
+
 import styles from './WorldMap.module.scss'
 
 import {
@@ -108,12 +110,14 @@ const WorldMap = ({ height, width, x, y, messageList }) => {
                       r="35"
                       fill={message.response === 'yes' ? 'green' : 'red'}
                     />
-                    <image
-                      clipPath="url(#circleView)"
-                      xlinkHref={_.get(message, 'member.photo')}
+                    <SvgImageWithPlaceholder
+                      imageProps={{
+                        src: _.get(message, 'member.photo'),
+                        className: styles.rsvp,
+                      }}
                       width={80}
                       height={80}
-                      style={{ background: 'white', cursor: 'pointer' }}
+                      shape="round"
                     />
                   </a>
                 </g>
