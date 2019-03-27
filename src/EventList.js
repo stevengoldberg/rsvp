@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import _ from 'lodash'
 
@@ -13,15 +13,18 @@ const EventList = ({
   getListRef,
   getScrolledToBottomRef,
   noRowsRenderer,
+  title,
+  setIsScrolledToBottom,
+  isScrolledToBottom,
   ...otherProps
 }) => {
-  const scrolledToBottom = useRef(true)
   const listRef = useRef()
-  const latestMessageRef = useRef(_.takeRight(messageList))
+  const [lastIndex, setLastIndex] = useState()
 
   useEffect(() => {
-    latestMessageRef.current = _.takeRight(messageList)
-  }, [messageList])
+    const latestId = _.get(_.takeRight(messageList), '[0].id')
+    setIsScrolledToBottom(latestId === lastIndex)
+  }, [lastIndex])
 
   const listProps = {
     rowHeight,
@@ -32,9 +35,7 @@ const EventList = ({
     scrollToAlignment: 'end',
     noRowsRenderer,
     onRowsRendered: ({ stopIndex }) => {
-      const latestId = _.get(latestMessageRef, 'current[0].id')
-      scrolledToBottom.current = stopIndex === latestId
-      getScrolledToBottomRef(scrolledToBottom.current)
+      setLastIndex(stopIndex)
     },
     rowRenderer: ({ index, key, style }) =>
       messageList[index] ? (
@@ -50,7 +51,7 @@ const EventList = ({
 
   getListRef(listRef.current)
 
-  if (scrolledToBottom.current && messageList.length) {
+  if (isScrolledToBottom && messageList.length) {
     listProps.scrollToIndex = messageList.length - 1
   }
 

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { AutoSizer } from 'react-virtualized'
 import classNames from 'classnames'
@@ -16,14 +16,14 @@ import styles from './StreamingColumn.module.scss'
 const StreamingColumn = ({ rowHeight, RenderComponent, socketKey, title }) => {
   const { messageList } = useStream(socketKey)
   const listRef = useRef()
-  const scrolledToBottom = useRef()
+  const [isScrolledToBottom, setIsScrolledToBottom] = useState(true)
   const viewportWidth = useViewportWidth()
 
   return (
     <div className={styles.root}>
       <ColumnHeader
         title={title}
-        scrolledToBottom={scrolledToBottom}
+        isScrolledToBottom={isScrolledToBottom}
         messageList={messageList}
         listRef={listRef}
       />
@@ -35,8 +35,11 @@ const StreamingColumn = ({ rowHeight, RenderComponent, socketKey, title }) => {
         <AutoSizer>
           {({ height, width }) => (
             <EventList
+              isScrolledToBottom={isScrolledToBottom}
+              setIsScrolledToBottom={setIsScrolledToBottom}
               messageList={messageList}
               rowHeight={rowHeight}
+              title={title}
               containerHeight={height}
               containerWidth={width}
               RenderComponent={RenderComponent}
@@ -45,9 +48,6 @@ const StreamingColumn = ({ rowHeight, RenderComponent, socketKey, title }) => {
                 listRef.current = ref
               }}
               noRowsRenderer={() => <EmptyColumn title={title} />}
-              getScrolledToBottomRef={ref => {
-                scrolledToBottom.current = ref
-              }}
             />
           )}
         </AutoSizer>
