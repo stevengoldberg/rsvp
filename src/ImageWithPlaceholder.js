@@ -6,7 +6,13 @@ import classNames from 'classnames'
 
 import styles from './ImageWithPlaceholder.module.scss'
 
-const ImageWithPlaceholder = ({ height, width, shape, isImageLoaded, ImageComponent }) => (
+const ImageWithPlaceholder = ({
+  height,
+  width,
+  shape,
+  isImageLoaded,
+  ImageComponent,
+}) => (
   <>
     {ImageComponent}
     <ReactPlaceholder

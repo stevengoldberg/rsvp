@@ -10,7 +10,7 @@ import { MOBILE_BREAKPOINT } from './App'
 
 import styles from './ColumnHeader.module.scss'
 
-const ColumnHeader = ({ title, isScrolledToBottom, messageList, listRef }) => {
+const ColumnHeader = ({ title, isScrolledToBottom, scrollToRow }) => {
   const viewportWidth = useViewportWidth()
   return (
     <div
@@ -24,9 +24,7 @@ const ColumnHeader = ({ title, isScrolledToBottom, messageList, listRef }) => {
       </div>
       <Button
         disabled={isScrolledToBottom}
-        onClick={() => {
-          listRef.current.scrollToRow(messageList.length - 1)
-        }}
+        onClick={scrollToRow}
       >
         {isScrolledToBottom ? 'All caught up' : 'Jump to latest'}
       </Button>

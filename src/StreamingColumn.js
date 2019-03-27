@@ -24,8 +24,7 @@ const StreamingColumn = ({ rowHeight, RenderComponent, socketKey, title }) => {
       <ColumnHeader
         title={title}
         isScrolledToBottom={isScrolledToBottom}
-        messageList={messageList}
-        listRef={listRef}
+        scrollToRow={() => listRef.current.scrollToRow(messageList.length - 1)}
       />
       <div
         className={classNames(styles.list, {
